@@ -1,0 +1,1185 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Débora Viana · Psicóloga Clínica</title>
+    <meta
+      name="description"
+      content="Psicóloga clínica. Atendimento presencial e online. Agendamento pelo WhatsApp."
+    />
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ══════════════════════════════════════════
+   CONFIGURAÇÃO DO CLIENTE — edite só aqui
+   ══════════════════════════════════════════ */
+      :root {
+        --cor: #7f9d82;
+        --cor-rgb: 127, 157, 130;
+        --cor-escura: #4f6852;
+        --clay: #c9a28c;
+        --fonte-nome: "Fraunces", serif;
+        --fonte-corpo: "Jost", sans-serif;
+        --padrao: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='1' fill='%237F9D82' fill-opacity='0.06'/%3E%3C/svg%3E");
+      }
+      /* ══ MODO CLARO (padrão) — clean, calmo ══ */
+      :root {
+        --bg: #faf8f5;
+        --bg2: #f1ede6;
+        --bg3: rgba(0, 0, 0, 0.032);
+        --borda: rgba(0, 0, 0, 0.08);
+        --texto: #2b302b;
+        --texto2: #7c8a7d;
+        --texto3: rgba(43, 48, 43, 0.32);
+        --sombra: rgba(0, 0, 0, 0.08);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background-color: var(--bg);
+        background-image: var(--padrao);
+        color: var(--texto);
+        font-family: var(--fonte-corpo);
+        font-weight: 300;
+        min-height: 100dvh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 32px 16px 48px;
+        -webkit-font-smoothing: antialiased;
+      }
+      .card {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      /* ══ ANIMAÇÕES ══ */
+      .reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 0.55s ease,
+          transform 0.55s ease;
+      }
+      .reveal.v {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .pop {
+        opacity: 0;
+        transform: scale(0.94);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+      .pop.v {
+        opacity: 1;
+        transform: scale(1);
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes girar {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes desenharLinha {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      @keyframes pulsarBtn {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(var(--cor-rgb), 0);
+        }
+        50% {
+          box-shadow: 0 0 0 6px rgba(var(--cor-rgb), 0.14);
+        }
+      }
+
+      /* ══ TOPO ══ */
+      .topo-linha {
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--cor),
+          transparent
+        );
+        border-radius: 99px;
+        margin-bottom: 36px;
+        animation: fadeIn 1s 0.2s both;
+      }
+
+      /* ══ CABEÇALHO ══ */
+      .cabecalho {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+      .foto-wrapper {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 18px;
+      }
+      .foto-linha {
+        position: absolute;
+        inset: -20px;
+        width: 136px;
+        height: 136px;
+        opacity: 0.42;
+        z-index: -1;
+        pointer-events: none;
+      }
+      .foto-linha path {
+        fill: none;
+        stroke: var(--cor);
+        stroke-width: 1;
+        stroke-linecap: round;
+        stroke-dasharray: 430;
+        stroke-dashoffset: 430;
+        animation: desenharLinha 2.1s ease-out 0.15s both;
+      }
+      .foto-anel {
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        background: conic-gradient(var(--cor), var(--clay), var(--cor));
+        animation: girar 9s linear infinite;
+        z-index: 0;
+      }
+      .foto-anel::after {
+        content: "";
+        position: absolute;
+        inset: 3px;
+        border-radius: 50%;
+        background: var(--bg);
+      }
+      .foto {
+        position: relative;
+        z-index: 1;
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto;
+        object-fit: cover;
+      }
+      .nome {
+        font-family: var(--fonte-nome);
+        font-size: 26px;
+        font-weight: 500;
+        font-style: italic;
+        line-height: 1.2;
+        margin-bottom: 5px;
+        color: var(--clay);
+      }
+      .profissao {
+        font-size: 12px;
+        color: var(--cor);
+        text-transform: uppercase;
+        letter-spacing: 0.13em;
+        margin-bottom: 4px;
+      }
+      .crp {
+        font-size: 11px;
+        color: var(--texto3);
+        letter-spacing: 0.06em;
+        margin-bottom: 8px;
+      }
+      .local {
+        font-size: 13px;
+        color: var(--texto2);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .selos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+        margin-top: 14px;
+      }
+      .selo {
+        font-size: 11px;
+        padding: 4px 10px;
+        border-radius: 99px;
+        border: 1px solid rgba(var(--cor-rgb), 0.35);
+        color: var(--cor);
+        background: rgba(var(--cor-rgb), 0.08);
+        font-weight: 500;
+      }
+
+      /* ══ SOBRE ══ */
+      .sobre {
+        margin-bottom: 24px;
+      }
+      .sobre-btn {
+        width: 100%;
+        background: var(--bg3);
+        border: 1px solid var(--borda);
+        border-radius: 12px;
+        padding: 14px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        color: var(--texto);
+        font-size: 13px;
+        font-weight: 500;
+        font-family: var(--fonte-corpo);
+        transition: border-color 0.2s;
+      }
+      .sobre-btn:hover {
+        border-color: rgba(var(--cor-rgb), 0.4);
+      }
+      .sobre-seta {
+        transition: transform 0.3s;
+        color: var(--texto2);
+      }
+      .sobre-btn[aria-expanded="true"] .sobre-seta {
+        transform: rotate(180deg);
+      }
+      .sobre-body {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.35s ease,
+          padding 0.3s;
+        font-size: 13.5px;
+        line-height: 1.7;
+        color: var(--texto2);
+        text-align: justify;
+      }
+      .sobre-body.open {
+        max-height: 320px;
+        padding: 14px 16px 4px;
+      }
+
+      /* ══ DIVISOR ══ */
+      hr {
+        border: none;
+        border-top: 1px solid var(--borda);
+        margin: 0 0 24px;
+      }
+
+      /* ══ BOTÕES ══ */
+      .acoes {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        margin-bottom: 24px;
+      }
+      .btn {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 13.5px;
+        font-weight: 500;
+        color: var(--texto);
+        background: var(--bg3);
+        border: 1px solid var(--borda);
+        transition:
+          background 0.18s,
+          border-color 0.18s,
+          transform 0.12s;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        font-family: var(--fonte-corpo);
+        width: 100%;
+        text-align: left;
+      }
+      .btn:active {
+        transform: scale(0.98);
+      }
+      .btn:hover {
+        background: rgba(var(--cor-rgb), 0.07);
+        border-color: rgba(var(--cor-rgb), 0.3);
+      }
+      .btn-p {
+        background: var(--cor);
+        border-color: var(--cor);
+        color: #fff;
+        font-weight: 600;
+        animation: pulsarBtn 3s ease-in-out infinite;
+      }
+      .btn-p:hover {
+        filter: brightness(1.06);
+        border-color: var(--cor);
+        color: var(--cor-escura);
+      }
+      .btn-ico {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .btn-p .btn-ico {
+        background: rgba(255, 255, 255, 0.18);
+      }
+      .btn-lbl {
+        flex: 1;
+      }
+      .btn-sub {
+        font-size: 11px;
+        font-weight: 300;
+        opacity: 0.7;
+        display: block;
+        margin-top: 1px;
+      }
+      .btn-arr {
+        opacity: 0.35;
+        flex-shrink: 0;
+      }
+      .feedback {
+        font-size: 11px;
+        color: var(--cor);
+        margin-top: 2px;
+        display: none;
+        font-weight: 500;
+      }
+      .feedback.on {
+        display: block;
+      }
+
+      /* ══ GALERIA ══ */
+      .sec-titulo {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--texto2);
+        margin-bottom: 12px;
+      }
+      .galeria-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+      }
+      .gitem {
+        aspect-ratio: 1;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+        background: var(--bg2);
+      }
+      .gitem img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+      }
+      .gitem:hover img {
+        transform: scale(1.06);
+      }
+      .gitem-over {
+        position: absolute;
+        inset: 0;
+        background: rgba(var(--cor-rgb), 0.18);
+        opacity: 0;
+        transition: opacity 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .gitem:hover .gitem-over {
+        opacity: 1;
+      }
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(20, 20, 15, 0.93);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 0.25s ease,
+          visibility 0.25s ease;
+      }
+      .lightbox.on {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      .lightbox img {
+        max-width: 100%;
+        max-height: 85vh;
+        border-radius: 12px;
+        object-fit: contain;
+        display: block;
+      }
+      .lb-close {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        z-index: 10000;
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: #fff;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-tap-highlight-color: transparent;
+      }
+      body.lb-open {
+        overflow: hidden;
+      }
+
+      /* ══ FORMAÇÃO (scroll horizontal) ══ */
+      .form-scroll {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+      }
+      .form-scroll::-webkit-scrollbar { height: 3px; }
+      .form-scroll::-webkit-scrollbar-thumb { background: var(--borda); border-radius: 3px; }
+      .form-card {
+        flex: 0 0 auto;
+        width: 190px;
+        background: var(--bg3);
+        border: 1px solid var(--borda);
+        border-radius: 12px;
+        padding: 14px 15px;
+        scroll-snap-align: start;
+      }
+      .form-eyebrow {
+        display: block;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--cor);
+        font-weight: 600;
+        margin-bottom: 7px;
+      }
+      .form-txt {
+        font-size: 13px;
+        color: var(--texto);
+        font-family: var(--fonte-nome);
+        font-style: italic;
+        line-height: 1.5;
+      }
+
+      /* ══ CONTADORES — estático ══ */
+      .contadores {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+      .cnt {
+        /*background: var(--bg3);*/
+        border: 1px solid var(--borda);
+        border-radius: 12px;
+        padding: 14px 10px;
+        text-align: center;
+      }
+      .cnt-n {
+        font-size: 22px;
+        font-weight: 500;
+        color: var(--cor);
+        font-family: var(--fonte-nome);
+        display: block;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      .cnt-l {
+        font-size: 10px;
+        color: var(--texto2);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        line-height: 1.3;
+      }
+
+      /* ══ HORÁRIOS ══ */
+      .horarios {
+        background: var(--bg3);
+        border: 1px solid var(--borda);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 24px;
+      }
+      .horarios-fuso {
+        font-size: 11px;
+        color: var(--texto3);
+        margin: -4px 0 12px;
+      }
+      .hitem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        padding: 5px 0;
+        gap: 10px;
+      }
+      .hitem + .hitem {
+        border-top: 1px solid var(--borda);
+      }
+      .hdia {
+        color: var(--texto2);
+      }
+      .hhora {
+        color: var(--texto);
+        font-weight: 500;
+        text-align: right;
+      }
+      .hfech {
+        color: var(--texto3);
+        font-style: italic;
+        font-size: 12px;
+      }
+
+      /* ══ PIX CARD ══ */
+      .pix-card {
+        background: var(--bg3);
+        border: 1px solid var(--borda);
+        border-radius: 12px;
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .pix-tipo {
+        display: block;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--cor);
+        font-weight: 600;
+        margin-bottom: 3px;
+      }
+      .pix-chave {
+        font-size: 13px;
+        color: var(--texto);
+        word-break: break-all;
+      }
+      .pix-btn {
+        flex-shrink: 0;
+        background: none;
+        border: 1px solid var(--cor);
+        color: var(--cor);
+        border-radius: 99px;
+        padding: 6px 14px;
+        font-size: 12px;
+        font-family: var(--fonte-corpo);
+        font-weight: 500;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: background 0.2s, color 0.2s;
+      }
+      .pix-btn:hover { background: var(--cor); color: #fff; }
+
+      /* ══ CATÁLOGO ══ */
+      .svc {
+        border: 1px solid var(--borda);
+        border-radius: 11px;
+        margin-bottom: 7px;
+        overflow: hidden;
+        background: var(--bg3);
+      }
+      .svc-h {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 13px 15px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: var(--texto);
+        font-family: var(--fonte-corpo);
+        font-size: 13.5px;
+        font-weight: 500;
+        text-align: left;
+        transition: color 0.2s;
+      }
+      .svc-h:hover {
+        color: var(--cor);
+      }
+      .svc-preco {
+        font-weight: 600;
+        color: var(--cor);
+        font-size: 14px;
+        margin-right: 8px;
+        white-space: nowrap;
+      }
+
+      /* ══ TAGS ══ */
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-bottom: 24px;
+      }
+      .tag {
+        font-size: 12px;
+        padding: 5px 12px;
+        border-radius: 99px;
+        background: var(--bg3);
+        border: 1px solid var(--borda);
+        color: var(--clay);
+      }
+
+      /* ══ RODAPÉ ══ */
+      .rodape {
+        text-align: center;
+        font-size: 11px;
+        color: var(--texto3);
+        padding-top: 8px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lightbox" id="lb">
+      <button class="lb-close" id="lb-close">✕</button
+      ><img id="lb-img" src="" alt="" />
+    </div>
+
+    <main class="card">
+      <div class="topo-linha"></div>
+
+      <!-- CABEÇALHO -->
+      <header class="cabecalho pop">
+        <div class="foto-wrapper">
+          <svg class="foto-linha" viewBox="0 0 136 136">
+            <path
+              d="M68 6 C 106 6, 130 30, 130 68 C 130 106, 106 130, 68 130 C 30 130, 6 106, 6 68 C 6 39, 23 15, 54 7"
+            />
+          </svg>
+          <div class="foto-anel"></div>
+          <img class="foto" src="logo.png" alt="Débora Viana" />
+        </div>
+        <h1 class="nome">Débora Viana</h1>
+        <p class="profissao">Psicóloga Clínica</p>
+        <p class="crp">CRP 05/00000</p>
+        <p class="local">
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+            />
+            <circle cx="12" cy="9" r="2.5" /></svg
+          >Queimados, RJ
+        </p>
+        <div class="selos">
+          <span class="selo">✦ Atende presencial e online</span>
+        </div>
+      </header>
+
+      <!-- SOBRE -->
+      <div class="sobre reveal">
+        <button
+          class="sobre-btn"
+          id="sobre-btn"
+          aria-expanded="false"
+          aria-controls="sobre-body"
+        >
+          Experiência
+          <svg
+            class="sobre-seta"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </button>
+        <div class="sobre-body" id="sobre-body">
+          <p>
+            Psicóloga há mais de 4 anos. Trabalho com terapia individual para
+            jovens e adultos, com Terapia Cognitivo-Comportamental. Acredito que
+            a terapia é um espaço de escuta genuína, onde cada pessoa encontra o
+            próprio ritmo. Meu trabalho é contribuir para que o cliente percorra
+            sua jornada de forma mais leve e saudável, melhorando sua qualidade
+            de vida em todos os âmbitos. O espaço terapêutico promove um
+            ambiente ético que lhe permite expressar-se sem julgamentos; possui
+            o objetivo de ressignificar suas escolhas, e resgatar ações que
+            promovem conscientemente o bem estar.
+          </p>
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- BOTÕES -->
+      <section class="acoes reveal">
+        <a
+          class="btn btn-p"
+          href="https://wa.me/5521975811821?text=Ol%C3%A1%2C%20vi%20seu%20cart%C3%A3o%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20atendimentos."
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="btn-ico"
+            ><svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+              />
+              <path
+                d="M12 0C5.373 0 0 5.373 0 12c0 2.136.564 4.14 1.547 5.874L.057 23.357a.75.75 0 00.917.908l5.623-1.472A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.7-.5-5.25-1.373l-.378-.213-3.916 1.026 1.043-3.807-.233-.38A10 10 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"
+              /></svg
+          ></span>
+          <span class="btn-lbl"
+            >Agendar por WhatsApp
+            <span class="btn-sub">Retorno em até 1 dia útil</span></span
+          >
+          <svg
+            class="btn-arr"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <path d="M7 17L17 7M7 7h10v10" />
+          </svg>
+        </a>
+
+        <div>
+          <a
+            class="btn"
+            href="https://share.google/ruzGVEJA1kIbCWStI"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="btn-ico"
+              ><svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <path
+                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+                />
+                <circle cx="12" cy="9" r="2.5" /></svg
+            ></span>
+            <span class="btn-lbl">Ver no mapa</span>
+          </a>
+        </div>
+
+        <button class="btn" id="btn-tel">
+          <span class="btn-ico"
+            ><svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" />
+              <path
+                d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
+              /></svg
+          ></span>
+          <span class="btn-lbl"
+            >Copiar número
+            <span class="btn-sub">(21) 90000-0000</span>
+            <span class="feedback" id="fb-tel">✓ Copiado!</span></span
+          >
+        </button>
+
+        <button class="btn" id="btn-email">
+          <span class="btn-ico"
+            ><svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="M2 6l10 7 10-7" /></svg
+          ></span>
+          <span class="btn-lbl"
+            >Copiar e-mail
+            <span class="btn-sub">contato@exemplo.com</span>
+            <span class="feedback" id="fb-email">✓ Copiado!</span></span
+          >
+        </button>
+
+        <button class="btn" id="btn-vcf">
+          <span class="btn-ico"
+            ><svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+            >
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+              <circle cx="12" cy="7" r="4" /></svg
+          ></span>
+          <span class="btn-lbl"
+            >Salvar contato
+            <span class="btn-sub">Abre nos Contatos do celular</span></span
+          >
+          <svg
+            class="btn-arr"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"
+            />
+          </svg>
+        </button>
+      </section>
+
+      <hr />
+
+      <!-- PIX -->
+      <section class="reveal" style="margin-bottom: 24px">
+        <p class="sec-titulo">Pagamento via PIX</p>
+        <div class="pix-card">
+          <div class="pix-info">
+            <span class="pix-tipo">E-mail</span>
+            <p class="pix-chave">contato@exemplo.com</p>
+          </div>
+          <button class="pix-btn" id="btn-pix">Copiar chave</button>
+        </div>
+        <span class="feedback" id="fb-pix" style="text-align:center;margin-top:8px;">✓ Chave copiada!</span>
+      </section>
+
+      <hr />
+      <section class="reveal" style="margin-bottom: 24px">
+        <p class="sec-titulo">O espaço</p>
+        <div class="galeria-grid" id="galeria">
+          <div class="gitem">
+            <img src="1.jpg" alt="Consultório" />
+            <div class="gitem-over">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="2"
+              >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
+            </div>
+          </div>
+          <div class="gitem">
+            <img src="3.jpg" alt="Consultório" />
+            <div class="gitem-over">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                stroke-width="2"
+              >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- FORMAÇÃO & ABORDAGEM -->
+      <section class="reveal" style="margin-bottom: 24px">
+        <p class="sec-titulo">Formação &amp; abordagem</p>
+        <div class="form-scroll">
+          <div class="form-card">
+            <span class="form-eyebrow">Graduação</span>
+            <p class="form-txt">Psicologia — Universidade Exemplo, 2016</p>
+          </div>
+          <div class="form-card">
+            <span class="form-eyebrow">Abordagem</span>
+            <p class="form-txt">Terapia Cognitivo-Comportamental (TCC)</p>
+          </div>
+          <div class="form-card">
+            <span class="form-eyebrow">Especialização</span>
+            <p class="form-txt">Ansiedade e Regulação Emocional — Instituto Exemplo</p>
+          </div>
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- CONTADORES — estático -->
+      <section class="contadores reveal">
+        <div class="cnt">
+          <span class="cnt-n">100%</span>
+          <span class="cnt-l">Humanizado</span>
+        </div>
+        <div class="cnt">
+          <span class="cnt-n">50min</span>
+          <span class="cnt-l">Por sessão</span>
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- HORÁRIOS -->
+      <section class="horarios reveal">
+        <p class="sec-titulo" style="margin-bottom: 6px">
+          Horário de atendimento
+        </p>
+        <p class="horarios-fuso">horário de Brasília</p>
+        <div class="hitem">
+          <span class="hdia">Seg a qui</span>
+          <span class="hhora">8h - 12h · 14h - 18h</span>
+        </div>
+        <div class="hitem">
+          <span class="hdia">Sex</span>
+          <span class="hhora">9h - 17h</span>
+        </div>
+        <div class="hitem">
+          <span class="hdia">Sáb e dom</span>
+          <span class="hfech">Sem atendimento</span>
+        </div>
+      </section>
+
+      <hr />
+
+      <!-- CATÁLOGO -->
+      <section class="reveal" style="margin-bottom: 24px">
+        <p class="sec-titulo">Sessões</p>
+        <div class="svc">
+          <button class="svc-h">
+            Sessão individual
+            <span
+              style="
+                margin-left: auto;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+              "
+              ><span class="svc-preco">R$ 130</span
+              ></span>
+          </button>
+        </div>
+        <div class="svc">
+          <button class="svc-h"">
+            Primeira consulta
+            <span
+              style="
+                margin-left: auto;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+              "
+              ><span class="svc-preco">R$ 90</span
+              ></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- TAGS -->
+      <div class="reveal">
+        <p class="sec-titulo">Especialidades</p>
+        <div class="tags">
+          <span class="tag">Ansiedade</span>
+          <span class="tag">Depressão</span>
+          <span class="tag">Estresse</span>
+          <span class="tag">Alterações do humor</span>
+          <span class="tag">Baixa autoestima</span>
+          <span class="tag">Dificuldade nas relações interpessoais</span>
+          <span class="tag">Conflitos na família</span>
+          <span class="tag">Bullying</span>
+          <span class="tag">Pânico</span>
+          <span class="tag">Fobias</span>
+          <span class="tag">Autoconhecimento</span>
+          <span class="tag">TCC</span>
+          <span class="tag">Regulação emocional</span>
+          <span class="tag">Terapia sexual</span>
+        </div>
+      </div>
+
+      <hr />
+
+      <footer class="rodape"><p>Cartão Digital · Débora Viana</p></footer>
+    </main>
+
+    <script>
+      // ══ CONFIG — edite aqui para cada cliente ══
+      const C = {
+        nome: "Débora Viana",
+        tel: "5521975811821",
+        telLabel: "(21) 90000-0000",
+        email: "contato@exemplo.com",
+        pix: "contato@exemplo.com",
+        site: window.location.href,
+      };
+
+      // ══ REVEAL ══
+      const obs = new IntersectionObserver(
+        (es) =>
+          es.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("v");
+              obs.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll(".reveal,.pop")
+        .forEach((el) => obs.observe(el));
+      setTimeout(
+        () =>
+          document.querySelectorAll(".reveal,.pop").forEach((el) => {
+            if (el.getBoundingClientRect().top < window.innerHeight)
+              el.classList.add("v");
+          }),
+        60,
+      );
+
+      // ══ SOBRE ══
+      const sobreBtn = document.getElementById("sobre-btn"),
+        sobreBody = document.getElementById("sobre-body");
+      sobreBtn.addEventListener("click", () => {
+        const open = sobreBtn.getAttribute("aria-expanded") === "true";
+        sobreBtn.setAttribute("aria-expanded", !open);
+        sobreBody.classList.toggle("open", !open);
+      });
+
+      // ══ COPIAR helpers ══
+      function copiar(texto, feedbackId) {
+        navigator.clipboard.writeText(texto).then(() => {
+          const f = document.getElementById(feedbackId);
+          f.classList.add("on");
+          setTimeout(() => f.classList.remove("on"), 2500);
+        });
+      }
+      document
+        .getElementById("btn-tel")
+        .addEventListener("click", () => copiar(C.telLabel, "fb-tel"));
+      document
+        .getElementById("btn-email")
+        .addEventListener("click", () => copiar(C.email, "fb-email"));
+      document
+        .getElementById("btn-pix")
+        .addEventListener("click", function() {
+          navigator.clipboard.writeText(C.pix).then(() => {
+            const f = document.getElementById("fb-pix");
+            f.classList.add("on");
+            setTimeout(() => f.classList.remove("on"), 2500);
+          });
+        });
+      document.getElementById("btn-vcf").addEventListener("click", () => {
+        const vcf = `BEGIN:VCARD\nVERSION:3.0\nFN:${C.nome}\nTEL;TYPE=CELL:+${C.tel}\nEMAIL:${C.email}\nURL:${C.site}\nEND:VCARD`;
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(
+          new Blob([vcf], { type: "text/vcard;charset=utf-8" }),
+        );
+        a.download = C.nome.replace(/\s+/g, "_") + ".vcf";
+        a.click();
+      });
+
+      // ══ LIGHTBOX ══
+      document.querySelectorAll(".gitem").forEach((item) => {
+        item.addEventListener("click", () => {
+          const img = item.querySelector("img");
+          if (!img) return;
+          document.getElementById("lb-img").src = img.src;
+          document.getElementById("lb").classList.add("on");
+          document.body.classList.add("lb-open");
+        });
+      });
+      function closeLb() {
+        document.getElementById("lb").classList.remove("on");
+        document.body.classList.remove("lb-open");
+      }
+      document.getElementById("lb-close").addEventListener("click", closeLb);
+      document.getElementById("lb").addEventListener("click", (e) => {
+        if (e.target === document.getElementById("lb")) closeLb();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeLb();
+      });
+
+      // ══ SALVAR VCF ══
+      document.getElementById("btn-vcf").addEventListener("click", () => {
+        const vcf = `BEGIN:VCARD\nVERSION:3.0\nFN:${C.nome}\nTEL;TYPE=CELL:+${C.tel}\nEMAIL:${C.email}\nURL:${C.site}\nEND:VCARD`;
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(
+          new Blob([vcf], { type: "text/vcard;charset=utf-8" }),
+        );
+        a.download = C.nome.replace(/\s+/g, "_") + ".vcf";
+        a.click();
+      });
+    </script>
+  </body>
+</html>
